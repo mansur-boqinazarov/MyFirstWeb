@@ -3,11 +3,13 @@ package uz.pdp.web2.user;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class UserService {
-    List<User> users = new ArrayList<User>();
+    private final UserRepository repository = new UserRepository();
+
     public User login(String email, String password) {
-        for (User user : users) {
+        for (User user : getAll()) {
             if (user.email.equals(email) && user.password.equals(password)) {
                 return user;
             }
@@ -15,8 +17,17 @@ public class UserService {
         return null;
     }
 
-    public UserService(List<User> users) {
-        this.users = users;
-        this.users.add(new User("Mansurbek", "Boqinazarov" ,"mansur@gmail.com","1222","+998 91 155 24 98","12-22-2015"));
+    public boolean signUp(User user) {
+        for (User user1 : getAll()) {
+            if (Objects.equals(user1.email, user.email)) {
+                return false;
+            }
+        }
+        repository.save(user);
+        return true;
+    }
+
+    public List<User> getAll() {
+        return repository.getAll();
     }
 }

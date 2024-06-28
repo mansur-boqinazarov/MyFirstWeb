@@ -1,4 +1,5 @@
 body {
+    background-image: url('wallpaperflare.com_wallpaper.jpg');
     font-family: Arial, sans-serif;
     color: #333;
     display: flex;
@@ -13,8 +14,16 @@ h1 {
     font-size: 2.5em;
     margin-bottom: 20px;
 }
-.button-container {
+.main-section, .help-section {
     margin: 20px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+.help-section {
+    display: none;
 }
 button {
     background-color: #4CAF50;
@@ -38,4 +47,18 @@ a {
 }
 a:hover {
     text-decoration: underline;
+}
+.animated-button {
+    animation: bounce 1s infinite;
+}
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-20px);
+    }
+    60% {
+        transform: translateY(-10px);
+    }
 }

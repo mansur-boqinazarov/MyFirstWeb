@@ -12,132 +12,136 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Objects;
 
+import static uz.pdp.web2.codes.Codes.LOGIN;
+import static uz.pdp.web2.codes.LoginCodes.LOGIN_ERROR;
+
 /**
  * @author Mansurbek Boqinazarov
  */
 @WebServlet(name = "LoginServlet", value = "/loginPage")
 public class LoginServlet extends HttpServlet {
-    UserService userService;
-    @Override
-    public void init() {
-
-    }
+    UserService userService = new UserService();
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         PrintWriter writer = response.getWriter();
-        String text  = """
-                <head>
-                <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    background-color: #f0f0f0;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    height: 100vh;
-                    margin: 0;
-                }
-                                
-                .login-container {
-                    background-color: white;
-                    padding: 20px;
-                    border-radius: 8px;
-                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                    width: 300px;
-                    text-align: center;
-                }
-                                
-                .login-container h2 {
-                    margin-bottom: 20px;
-                }
-                                
-                .input-group {
-                    margin-bottom: 15px;
-                    text-align: left;
-                }
-                                
-                .input-group label {
-                    display: block;
-                    margin-bottom: 5px;
-                }
-                                
-                .input-group input {
-                    width: 100%;
-                    padding: 8px;
-                    border: 1px solid #ccc;
-                    border-radius: 4px;
-                    box-sizing: border-box;
-                }
-                                
-                button {
-                    background-color: #4CAF50;
-                    color: white;
-                    padding: 10px 15px;
-                    border: none;
-                    border-radius: 4px;
-                    cursor: pointer;
-                    width: 100%;
-                }
-                                
-                button:hover {
-                    background-color: #45a049;
-                }
-                                
-                </style>
-                </head>
-                <body>
-                    <div class="login-container">
-                        <h2>Login</h2>
-                        <form action="/loginPage">
-                            <div class="input-group">
-                                <label for="email">Email:</label>
-                                <input type="email" id="email" name="email" required>
-                            </div>
-                            <div class="input-group">
-                                <label for="password">Password:</label>
-                                <input type="password" id="password" name="password" required>
-                            </div>
-                            <a href="userInfoPage"><button type="submit">Login</button></a>
-                        </form>
-                    </div>
-                </body>
-                """;
-        writer.write(text);
-    }
-
-    @Override
-    public void destroy() {
-
+        writer.write(LOGIN);
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println(req.getMethod());
+
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        User login = userService.login(email, password);
+
+        User user = userService.login(email, password);
         PrintWriter writer = resp.getWriter();
-        User user = new User();
-        String text = """
-                <body>
-                <h1>Welcome %s %s</h1>
-                <h5>Firstname: %s</h5>
-                <h5>Lastname: %s</h5>
-                <h5>Email: %s</h5>
-                <h5>Password: %s</h5>
-                <h5>Phone: %s</h5>
-                <h5>BirthDay: %s</h5>
-                </body>
-                """.formatted(user.firstName, user.lastName,
-                user.firstName,
-                user.lastName,
-                user.email,
-                user.password,
-                user.phone,
-                user.birthDate);
-        if (Objects.nonNull(login)){
+
+        if (Objects.nonNull(user)) {
+            String text = """
+                    <!DOCTYPE html>
+                    <html lang="en">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>User Information</title>
+                        <style>
+                        .animated-button {
+                            background-color: #4CAF50; /* Green background */
+                            border: none; /* Remove border */
+                            color: white; /* White text */
+                            padding: 15px 32px; /* Some padding */
+                            text-align: center; /* Centered text */
+                            text-decoration: none; /* Remove underline */
+                            display: inline-block; /* Make the button inline */
+                            font-size: 16px; /* Increase font size */
+                            margin: 4px 2px; /* Some margin */
+                            cursor: pointer; /* Pointer/hand icon */
+                            transition: all 0.3s ease; /* Add transition for animations */
+                            border-radius: 12px; /* Rounded corners */
+                        }
+                        
+                        .animated-button:hover {
+                            background-color: #45a049; /* Darker green */
+                            transform: scale(1.1); /* Slightly increase size */
+                            box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19); /* Add shadow */
+                        }
+                            body {
+                                font-family: Arial, sans-serif;
+                                background-color: #f0f0f0;
+                                margin: 0;
+                                padding: 100px;
+                            }
+                            .container {
+                                max-width: 600px;
+                                margin: auto;
+                                background-color: #fff;
+                                padding: 20px;
+                                border-radius: 8px;
+                                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                                opacity: 0;
+                                transform: translateY(-20px);
+                                animation: fadeIn 1s forwards;
+                            }
+                            h1, h5 {
+                                color: #333;
+                            }
+                            h1 {
+                                margin-top: 0;
+                                font-size: 24px;
+                                text-transform: uppercase;
+                                letter-spacing: 1px;
+                            }
+                            h5 {
+                                margin-bottom: 5px;
+                                font-size: 16px;
+                                color: #555;
+                            }
+                            p {
+                                margin: 0;
+                                font-size: 14px;
+                            }
+                            @keyframes fadeIn {
+                                to {
+                                    opacity: 1;
+                                    transform: translateY(0);
+                                }
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="container">
+                            <h1>Welcome %s %s</h1>
+                            <h5>Firstname: <i>%s</i></h5>
+                            <h5>Lastname: <i>%s</i> </h5>
+                            <h5>Email: <i>%s</i>    </h5>
+                            <h5>Password: <i>%s</i> </h5>
+                            <h5>Phone: <i>%s</i> </h5>
+                            <h5>BirthDay: <i>%s</i> </h5>
+                            <hr>
+                         <a href="/"><button class="animated-button">Back to Home</button></a>
+                        </div>
+                        <script>
+                            
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const container = document.querySelector('.container');
+                                container.style.opacity = '1';
+                                container.style.transform = 'translateY(0)';
+                            });
+                        </script>
+                    </body>
+                    </html>
+                    """.formatted(user.firstName, user.lastName,
+                    user.firstName,
+                    user.lastName,
+                    user.email,
+                    user.password,
+                    user.phone,
+                    user.birthDate);
             writer.write(text);
-        }else {
-            writer.write("<h1>Login Error</h1>");
+        } else {
+            writer.write(LOGIN_ERROR);
         }
     }
 }
