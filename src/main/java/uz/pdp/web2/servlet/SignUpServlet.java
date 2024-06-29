@@ -7,7 +7,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import uz.pdp.web2.user.User;
 import uz.pdp.web2.user.UserService;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;

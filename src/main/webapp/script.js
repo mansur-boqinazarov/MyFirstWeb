@@ -5,5 +5,5 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => {
         helpSection.style.display = 'block';
         helpSection.style.transform = 'translateY(0)';
-    }, 3000);  // 3 sekunddan keyin help bo'limi paydo bo'ladi
+    }, 3000);
 });
