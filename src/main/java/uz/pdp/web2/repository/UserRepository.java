@@ -1,4 +1,6 @@
-package uz.pdp.web2.user;
+package uz.pdp.web2.repository;
+
+import uz.pdp.web2.model.User;
 
 import java.sql.*;
 import java.util.ArrayList;

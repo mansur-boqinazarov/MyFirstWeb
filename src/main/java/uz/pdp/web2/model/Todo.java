@@ -1,6 +1,5 @@
-package uz.pdp.web2.todo;
+package uz.pdp.web2.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

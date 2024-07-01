@@ -1,8 +1,7 @@
-package uz.pdp.web2.user;
+package uz.pdp.web2.model;
 
 import lombok.*;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 

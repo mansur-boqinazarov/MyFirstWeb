@@ -1,7 +1,8 @@
-package uz.pdp.web2.todo;
+package uz.pdp.web2.repository;
+
+import uz.pdp.web2.model.Todo;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,13 +25,12 @@ public class ToDoRepository {
     public void save(Todo todo) {
         Connection connection = getConnection();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO todo_users(task,description,created_at,due_date,completed) VALUES(?,?,?,?,?)");
-            preparedStatement.setString(1, todo.task);
-            preparedStatement.setString(2, todo.description);
-            preparedStatement.setTimestamp(3, Timestamp.valueOf(todo.created_at));
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO todo_users(owner_id,task,description,due_date) VALUES(?,?,?,?)");
+            preparedStatement.setInt(1, todo.owner_id);
+            preparedStatement.setString(2, todo.task);
+            preparedStatement.setString(3, todo.description);
             preparedStatement.setTimestamp(4, Timestamp.valueOf(todo.due_date));
-            preparedStatement.setBoolean(5, todo.completed);
-            preparedStatement.executeUpdate();
+            preparedStatement.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -44,6 +44,7 @@ public class ToDoRepository {
             while (rs.next()) {
                 Todo todo = new Todo();
                 todo.id = rs.getInt("id");
+                todo.owner_id = rs.getInt("owner_id");
                 todo.task = rs.getString("task");
                 todo.description = rs.getString("description");
                 todo.created_at = rs.getTimestamp("created_at").toLocalDateTime();
