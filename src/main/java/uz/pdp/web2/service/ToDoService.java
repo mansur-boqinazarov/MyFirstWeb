@@ -10,9 +10,8 @@ import java.util.List;
  */
 public class ToDoService {
     public static final ToDoRepository repository = new ToDoRepository();
-    public boolean save(Todo todo){
+    public void save(Todo todo){
         repository.save(todo);
-        return true;
     }
     public List<Todo> getAll(){
         return repository.getAll();

@@ -3,6 +3,7 @@ package uz.pdp.web2.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.File;
 import java.time.LocalDateTime;
 
 /**
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 @Data
 public class Todo {
     public int id;
+    public int file_id;
     public int owner_id;
     public String task;
     public String description;
@@ -19,12 +21,13 @@ public class Todo {
     public LocalDateTime due_date;
     public boolean completed;
 
-    public Todo(int owner_id, String task, String description, LocalDateTime due_date) {
+    public Todo(int owner_id, String task, String description, LocalDateTime due_date ,int fileId) {
         this.owner_id = owner_id;
         this.task = task;
         this.description = description;
         this.due_date = due_date;
         this.completed = false;
         this.created_at = LocalDateTime.now();
+        this.file_id = fileId;
     }
 }

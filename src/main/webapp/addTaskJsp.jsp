@@ -144,19 +144,24 @@
 <body>
 <div class="container">
     <h1>Create Task</h1>
-    <form id="taskForm" action="addTask" method="post">
+    <form id="taskForm" action="addTask" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label>Task:</label>
-            <input type="text" name="task" required>
+            <input type="text" name="task" id="task" required>
         </div>
         <div class="form-group">
             <label>Description:</label>
-            <textarea id="description" name="description" required></textarea>
+            <textarea id="description" name="description"  required></textarea>
         </div>
         <div class="form-group">
             <label>Due Date:</label>
-            <input type="datetime-local" name="due_date" required>
+            <input type="datetime-local" name="due_date" id="due_date" required>
         </div>
+        <div class="form-group">
+            <label for="file">Choose file:</label>
+            <input type="file" name="file" id="file" required><br><br>
+        </div>
+        <hr>
         <button type="submit">CREATE</button>
     </form>
 </div>

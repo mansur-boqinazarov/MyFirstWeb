@@ -2,8 +2,12 @@ package uz.pdp.web2.repository;
 
 import uz.pdp.web2.model.Todo;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -25,11 +29,12 @@ public class ToDoRepository {
     public void save(Todo todo) {
         Connection connection = getConnection();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO todo_users(owner_id,task,description,due_date) VALUES(?,?,?,?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO todo_users(owner_id,task,description,due_date,file_id) VALUES(?,?,?,?,?)");
             preparedStatement.setInt(1, todo.owner_id);
             preparedStatement.setString(2, todo.task);
             preparedStatement.setString(3, todo.description);
             preparedStatement.setTimestamp(4, Timestamp.valueOf(todo.due_date));
+            preparedStatement.setInt(5, todo.file_id);
             preparedStatement.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);

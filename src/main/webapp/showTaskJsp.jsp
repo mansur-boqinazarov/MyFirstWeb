@@ -159,7 +159,7 @@
             <p>
                 <strong>Due Date:</strong> <i><%= todo.getDue_date() %></i>
             </p>
-
+            <a href="download?fileId=<%=todo.getFile_id()%>"> Download</a>
             <button type="button" style="color: #78e81c; margin-left: 95%; ">DELETE</button>
 
 
