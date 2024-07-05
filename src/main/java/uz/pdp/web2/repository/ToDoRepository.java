@@ -1,5 +1,6 @@
 package uz.pdp.web2.repository;
 
+import lombok.SneakyThrows;
 import uz.pdp.web2.model.Todo;
 
 import java.io.File;
@@ -51,6 +52,7 @@ public class ToDoRepository {
                 todo.id = rs.getInt("id");
                 todo.owner_id = rs.getInt("owner_id");
                 todo.task = rs.getString("task");
+                todo.file_id = rs.getInt("file_id");
                 todo.description = rs.getString("description");
                 todo.created_at = rs.getTimestamp("created_at").toLocalDateTime();
                 todo.due_date = rs.getTimestamp("due_date").toLocalDateTime();
@@ -62,11 +64,9 @@ public class ToDoRepository {
             throw new RuntimeException(e);
         }
     }
+
+    @SneakyThrows
     public Connection getConnection() {
-        try {
             return DriverManager.getConnection(URL,USERNAME,PASSWORD);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

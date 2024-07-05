@@ -1,3 +1,4 @@
+<%@ page import="uz.pdp.web2.model.User" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,14 +7,14 @@
     <title>Add Task</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(45deg, #000000, #ffffff, #4141ab, #000000); /* Initial background colors */
+            background: linear-gradient(45deg, #000000, #ffffff, #4141ab, #000000);
             background-size: 400% 400%;
             animation: backgroundAnimation 15s ease infinite;
         }
@@ -34,11 +35,11 @@
             background-color: #fff;
             padding: 40px;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             max-width: 600px;
             margin: 20px;
             text-align: center;
-            animation: fadeInUp 0.5s ease; /* Removed pulse effect */
+            animation: fadeInUp 0.5s ease;
         }
 
         @keyframes fadeInUp {
@@ -77,10 +78,11 @@
             display: block;
             margin-bottom: 10px;
             color: #555;
+            font-weight: bold;
         }
 
-        input[type="text"], textarea, input[type="datetime-local"] {
-            width: calc(100% - 16px);
+        input[type="text"], textarea, input[type="datetime-local"], input[type="file"] {
+            width: 100%;
             padding: 12px;
             border: 1px solid #ccc;
             border-radius: 6px;
@@ -88,7 +90,7 @@
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        input[type="text"]:focus, textarea:focus, input[type="datetime-local"]:focus {
+        input[type="text"]:focus, textarea:focus, input[type="datetime-local"]:focus, input[type="file"]:focus {
             border-color: #007bff;
             box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
         }
@@ -146,21 +148,22 @@
     <h1>Create Task</h1>
     <form id="taskForm" action="addTask" method="post" enctype="multipart/form-data">
         <div class="form-group">
-            <label>Task:</label>
+            <label for="task">Task:</label>
             <input type="text" name="task" id="task" required>
         </div>
         <div class="form-group">
-            <label>Description:</label>
-            <textarea id="description" name="description"  required></textarea>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" required></textarea>
         </div>
         <div class="form-group">
-            <label>Due Date:</label>
+            <label for="due_date">Due Date:</label>
             <input type="datetime-local" name="due_date" id="due_date" required>
         </div>
         <div class="form-group">
             <label for="file">Choose file:</label>
             <input type="file" name="file" id="file" required><br><br>
         </div>
+        <input type="hidden" value="userId">
         <hr>
         <button type="submit">CREATE</button>
     </form>

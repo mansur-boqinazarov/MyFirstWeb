@@ -2,9 +2,7 @@ package uz.pdp.web2.servlet;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
 import lombok.SneakyThrows;
 import uz.pdp.web2.model.User;
 import uz.pdp.web2.service.UserService;
@@ -20,7 +18,6 @@ import static uz.pdp.web2.codes.LoginCodes.LOGIN_SUCCESS;
 
 @WebServlet(name = "LoginServlet", value = "/loginPage")
 public class LoginServlet extends HttpServlet {
-    public static User USER ;
     UserService userService = new UserService();
 
     @Override
@@ -30,25 +27,35 @@ public class LoginServlet extends HttpServlet {
     }
 
     @SneakyThrows
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp){
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         System.out.println(req.getMethod());
 
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        USER = userService.login(email, password);
+        User user = userService.login(email, password);
         PrintWriter writer = resp.getWriter();
 
-        if (Objects.nonNull(USER)) {
-            String text = LOGIN_SUCCESS.formatted(USER.firstName, USER.lastName,
-                    USER.firstName,
-                    USER.lastName,
-                    USER.email,
-                    USER.password,
-                    USER.phone,
-                    USER.birthDate);
+        if (Objects.nonNull(user)) {
+            HttpSession session = req.getSession();
+
+            session.setAttribute("userId", user.getId());
+
+
+            String id = session.getId();
+            Cookie coo = new Cookie("JSESSIONID", id);
+            coo.setMaxAge(60*60);
+            resp.addCookie(coo);
+
+
+            String text = LOGIN_SUCCESS.formatted(user.firstName, user.lastName,
+                    user.firstName,
+                    user.lastName,
+                    user.email,
+                    user.password,
+                    user.phone,
+                    user.birthDate);
             writer.write(text);
-        } else {
+        } else
             writer.write(LOGIN_ERROR);
-        }
     }
 }

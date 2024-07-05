@@ -10,12 +10,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "CreateTaskServlet",value = "/createTask")
+@WebServlet(name = "CreateTaskServlet", value = "/createTask")
 public class CreateTaskServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-       RequestDispatcher requestDispatcher = req.getRequestDispatcher("/create.jsp");
-        requestDispatcher.forward(req, resp);
+        String email = (String) req.getSession().getAttribute("email");
+        String password = (String) req.getSession().getAttribute("password");
+
+        req.getRequestDispatcher("/create.jsp").forward(req, resp);
     }
 
     @Override

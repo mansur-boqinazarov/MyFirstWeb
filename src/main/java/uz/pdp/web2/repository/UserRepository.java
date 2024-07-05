@@ -1,5 +1,6 @@
 package uz.pdp.web2.repository;
 
+import lombok.SneakyThrows;
 import uz.pdp.web2.model.User;
 
 import java.sql.*;
@@ -60,11 +61,8 @@ public class UserRepository {
             throw new RuntimeException(e);
         }
     }
+    @SneakyThrows
     public Connection getConnection() {
-        try {
-            return DriverManager.getConnection(URL,USERNAME,PASSWORD);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        return DriverManager.getConnection(URL,USERNAME,PASSWORD);
     }
 }

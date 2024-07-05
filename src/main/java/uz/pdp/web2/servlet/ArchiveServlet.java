@@ -13,7 +13,9 @@ import java.io.IOException;
 public class ArchiveServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/archiveTodo.jsp");
-        requestDispatcher.forward(req, resp);
+        String email = (String) req.getSession().getAttribute("email");
+        String password = (String) req.getSession().getAttribute("password");
+
+        req.getRequestDispatcher("/archiveTodo.jsp").forward(req, resp);
     }
 }

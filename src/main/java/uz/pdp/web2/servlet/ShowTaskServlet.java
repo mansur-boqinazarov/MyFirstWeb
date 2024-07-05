@@ -13,7 +13,8 @@ import java.io.PrintWriter;
 
 @WebServlet(name = "ShowTaskServlet", value = "/showTask")
 public class ShowTaskServlet extends HttpServlet {
-    ToDoService toDoService =  new ToDoService();
+    ToDoService toDoService = new ToDoService();
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -21,11 +22,12 @@ public class ShowTaskServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        boolean b = toDoService.checkUserTask(LoginServlet.USER.id);
+        int userId = (int) req.getSession().getAttribute("userId");
+        boolean b = toDoService.checkUserTask(userId);
         if (!b) {
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("showTaskJsp.jsp");
             requestDispatcher.forward(req, resp);
-        }else {
+        } else {
             PrintWriter writer = resp.getWriter();
             writer.println("""
                     <!DOCTYPE html>

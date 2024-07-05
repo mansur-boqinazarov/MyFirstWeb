@@ -1,44 +1,45 @@
-class MainMenu {
-    constructor() {
-        this.init();
-    }
-
-    init() {
-        this.addButtonEffects();
-        this.addScrollEffects();
-    }
-
-    addButtonEffects() {
-        const buttons = document.querySelectorAll('.animated-button');
-
-        buttons.forEach(button => {
-            button.addEventListener('mouseenter', () => {
-                button.style.transform = 'scale(1.1)';
-                button.style.boxShadow = '0 0 10px #333';
-            });
-
-            button.addEventListener('mouseleave', () => {
-                button.style.transform = 'scale(1)';
-                button.style.boxShadow = 'none';
-            });
-        });
-    }
-
-    addScrollEffects() {
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('.header');
-            const scrollY = window.scrollY;
-
-            if (scrollY > 50) {
-                header.style.background = 'rgba(0, 0, 0, 0.7)';
-            } else {
-                header.style.background = 'rgba(0, 0, 0, 0.5)';
-            }
-        });
-    }
-}
-
-// Initialize the MainMenu class when the document is ready
 document.addEventListener('DOMContentLoaded', () => {
-    new MainMenu();
+    // Add event listeners to buttons for additional interactive effects
+    const buttons = document.querySelectorAll('.animated-button');
+
+    buttons.forEach(button => {
+        button.addEventListener('mouseover', () => {
+            button.style.transform = 'scale(1.2)';
+            button.style.boxShadow = '0 0 20px rgba(0, 140, 186, 0.5)';
+        });
+
+        button.addEventListener('mouseout', () => {
+            button.style.transform = 'scale(1)';
+            button.style.boxShadow = 'none';
+        });
+
+        button.addEventListener('mousedown', () => {
+            button.style.transform = 'scale(1)';
+            button.style.boxShadow = 'inset 0 0 10px rgba(0, 0, 0, 0.3)';
+        });
+
+        button.addEventListener('mouseup', () => {
+            button.style.transform = 'scale(1.2)';
+            button.style.boxShadow = '0 0 20px rgba(0, 140, 186, 0.5)';
+        });
+    });
+
+    // Add a fade-in effect to the main content on page load
+    const mainSection = document.querySelector('.main-section');
+    mainSection.style.opacity = 0;
+    setTimeout(() => {
+        mainSection.style.transition = 'opacity 1.5s';
+        mainSection.style.opacity = 1;
+    }, 500);
+
+    // Add smooth scroll to the help link
+    const helpLink = document.querySelector('.help-section a');
+    helpLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = e.target.getAttribute('href');
+        window.scrollTo({
+            top: document.querySelector(targetId).offsetTop,
+            behavior: 'smooth'
+        });
+    });
 });
