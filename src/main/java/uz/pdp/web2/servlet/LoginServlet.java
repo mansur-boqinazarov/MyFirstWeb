@@ -1,6 +1,6 @@
 package uz.pdp.web2.servlet;
 
-import jakarta.servlet.ServletException;
+
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import lombok.SneakyThrows;
@@ -10,13 +10,14 @@ import uz.pdp.web2.service.UserService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Objects;
+import java.util.Optional;
 
 import static uz.pdp.web2.codes.Codes.LOGIN;
 import static uz.pdp.web2.codes.LoginCodes.LOGIN_ERROR;
 import static uz.pdp.web2.codes.LoginCodes.LOGIN_SUCCESS;
 
 
-@WebServlet(name = "LoginServlet", value = "/loginPage")
+@WebServlet(name = "LoginServlet", value = "/login")
 public class LoginServlet extends HttpServlet {
     UserService userService = new UserService();
 
@@ -38,12 +39,12 @@ public class LoginServlet extends HttpServlet {
         if (Objects.nonNull(user)) {
             HttpSession session = req.getSession();
 
-            session.setAttribute("userId", user.getId());
+            session.setAttribute("userId", Optional.of(user.getId()));
 
 
             String id = session.getId();
             Cookie coo = new Cookie("JSESSIONID", id);
-            coo.setMaxAge(60*60);
+            coo.setMaxAge(15);
             resp.addCookie(coo);
 
 
@@ -55,7 +56,8 @@ public class LoginServlet extends HttpServlet {
                     user.phone,
                     user.birthDate);
             writer.write(text);
-        } else
+        }
+        else
             writer.write(LOGIN_ERROR);
     }
 }

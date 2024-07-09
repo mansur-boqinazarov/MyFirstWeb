@@ -5,6 +5,7 @@
     <title>Main Menu</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="icon" type="image/jpeg" href="./resources/sticker.png">
     <style>
         body {
             background: #141E30; /* fallback for old browsers */
@@ -90,10 +91,10 @@
 </header>
 <section class="main-section">
     <div class="button-container">
-        <a href="/loginPage">
+        <a href="/login">
             <button type="button" class="animated-button animate__animated animate__fadeInUp">Login</button>
         </a>
-        <a href="/signupPage">
+        <a href="/signup">
             <button type="button" class="animated-button animate__animated animate__fadeInUp">Sign Up</button>
         </a>
     </div>

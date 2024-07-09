@@ -3,12 +3,8 @@ package uz.pdp.web2.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.File;
 import java.time.LocalDateTime;
 
-/**
- * @author Mansurbek Boqinazarov
- */
 @NoArgsConstructor
 @Data
 public class Todo {

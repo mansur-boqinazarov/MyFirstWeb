@@ -115,7 +115,7 @@ public interface Codes {
                 <div class="container">
                     <div class="signup-form">
                         <h2>Signup</h2>
-                        <form action="/signupPage" method="POST">
+                        <form action="/signup" method="POST">
                             <label for="firstName">First Name:</label>
                             <input type="text" id="firstName" name="firstName" required>
 
@@ -256,7 +256,7 @@ public interface Codes {
             <body>
             <div class="login-container">
                 <h2>Log In</h2>
-                <form action="/loginPage" method="post">
+                <form action="/login" method="post">
                     <div class="input-group">
                         <label for="email">Email:</label>
                         <input type="email" id="email" name="email" required>
@@ -272,5 +272,5 @@ public interface Codes {
             </body>
             </html>
 
-                                    """;
+            """;
 }

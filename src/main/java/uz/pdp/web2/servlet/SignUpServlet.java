@@ -14,7 +14,7 @@ import java.time.LocalDate;
 import static uz.pdp.web2.codes.Codes.SIGN_UP;
 import static uz.pdp.web2.codes.SignUpCodes.*;
 
-@WebServlet(name = "SignUpServlet", value = "/signupPage")
+@WebServlet(name = "SignUpServlet", value = "/signup")
 public class SignUpServlet extends HttpServlet {
 
     UserService userService = new UserService();
